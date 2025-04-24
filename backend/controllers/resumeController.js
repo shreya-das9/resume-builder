@@ -166,8 +166,10 @@ const deleteResume = async (req, res) => {
 
     // Delete thumbnailLink and profilePreviewUrl images from uploads folder
     const uploadsFolder = path.join(__dirname, '..', 'uploads');
-    const baseUrl = `${req.protocol}://${req.get("host")}`;
-
+    // const baseUrl = `${req.protocol}://${req.get("host")}`;
+const baseUrl = process.env.NODE_ENV === 'production' 
+  ? "https://resume-builder-api-yzsc.onrender.com"
+  : `${req.protocol}://${req.get("host")}`;
     if(resume.thumbnailLink){
       const oldThumbnail = path.join(uploadsFolder, path.basename(resume.thumbnailLink));
       if (fs.existsSync(oldThumbnail)) fs.unlinkSync(oldThumbnail);
