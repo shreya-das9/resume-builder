@@ -11,7 +11,7 @@ const getBaseURL = () => {
   }
   
   // Default for production (update this with your deployed backend URL)
-  return "https://resume-builder-api.onrender.com";
+  return "https://resume-builder-vr0a.onrender.com";
 };
 
 export const BASE_URL = getBaseURL();
