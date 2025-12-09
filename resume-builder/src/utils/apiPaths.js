@@ -1,4 +1,20 @@
-export const BASE_URL = "https://resume-builder-api-yzsc.onrender.com";
+// Detect environment and set appropriate API URL
+const getBaseURL = () => {
+  // Check if environment variable is set
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
+  
+  // Use localhost for development
+  if (import.meta.env.DEV) {
+    return "http://localhost:8000";
+  }
+  
+  // Default for production (update this with your deployed backend URL)
+  return "https://resume-builder-api.onrender.com";
+};
+
+export const BASE_URL = getBaseURL();
 
 // utils/apiPaths.js
 export const API_PATHS = {
