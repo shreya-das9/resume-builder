@@ -1,4 +1,5 @@
 import React from "react";
+import { FiX } from "react-icons/fi";
 
 const Modal = ({
   children,
@@ -14,20 +15,19 @@ const Modal = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-center items-center w-full h-full bg-black/40">
+    <div className="fixed inset-0 z-50 flex justify-center items-center w-full h-full bg-black/50 backdrop-blur-sm">
       {/* Modal Content */}
       <div
-        className={`relative flex flex-col bg-white shadow-lg rounded-lg overflow-hidden 
-        `}
+        className="relative flex flex-col bg-white rounded-2xl overflow-hidden shadow-2xl max-w-2xl max-h-[90vh] w-full mx-4 animate-float-up"
       >
         {/* Modal Header */}
         {!hideHeader && (
-          <div className="flex items-center justify-between p-4 border-b border-gray-200">
-            <h3 className="md:text-lg font-medium text-gray-900">{title}</h3>
+          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200/50">
+            <h3 className="text-lg font-bold text-gray-900">{title}</h3>
 
             {showActionBtn && (
               <button
-                className="btn-small-light mr-12"
+                className="btn-small-light"
                 onClick={() => onActionClick()}
               >
                 {actionBtnIcon}
@@ -37,26 +37,14 @@ const Modal = ({
           </div>
         )}
 
+        {/* Close Button */}
         <button
           type="button"
-          className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex justify-center items-center absolute top-3.5 right-3.5"
+          className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-all duration-200 z-10"
           onClick={onClose}
+          title="Close"
         >
-          <svg
-            className="w-3 h-3"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 14"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M1 1l6 6m0 0l6 6M7 7l6-6M7 7l-6 6"
-            />
-          </svg>
+          <FiX className="w-5 h-5" />
         </button>
 
         {/* Modal Body (Scrollable) */}

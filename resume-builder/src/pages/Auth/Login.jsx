@@ -5,11 +5,13 @@ import { validateEmail } from "../../utils/helper";
 import { UserContext } from "../../context/userContext";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
+import { FiArrowRight, FiAlertCircle } from "react-icons/fi";
 
-const Login = ({ setCurrentPage }) => {
+const Login = ({ setCurrentPage, onSwitch, onSuccess }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const { updateUser } = useContext(UserContext);
   const navigate = useNavigate();
@@ -29,6 +31,7 @@ const Login = ({ setCurrentPage }) => {
     }
 
     setError("");
+    setLoading(true);
 
     //Login API Call
     try {
@@ -42,6 +45,7 @@ const Login = ({ setCurrentPage }) => {
       if (token) {
         localStorage.setItem("token", token);
         updateUser(response.data);
+        onSuccess?.();
         navigate("/dashboard");
       }
     } catch (error) {
@@ -50,17 +54,21 @@ const Login = ({ setCurrentPage }) => {
       } else {
         setError("Something went wrong. Please try again.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="w-[90vw] md:w-[33vw] p-7 flex flex-col justify-center">
-      <h3 className="text-lg font-semibold text-black">Welcome Back</h3>
-      <p className="text-xs text-slate-700 mt-[5px] mb-6">
-        Please enter your details to log in
-      </p>
+    <div className="w-full md:w-[400px] p-8 flex flex-col justify-center">
+      <div className="mb-8">
+        <h3 className="text-2xl font-bold text-gray-900">Welcome Back</h3>
+        <p className="text-sm text-gray-600 mt-2">
+          Login to your account to continue
+        </p>
+      </div>
 
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleLogin} className="space-y-5">
         <Input
           value={email}
           onChange={({ target }) => setEmail(target.value)}
@@ -77,23 +85,32 @@ const Login = ({ setCurrentPage }) => {
           type="password"
         />
 
-        {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
+        {error && (
+          <div className="flex items-start gap-3 p-4 bg-red-50 border border-red-200 rounded-lg">
+            <FiAlertCircle className="text-red-500 mt-0.5 flex-shrink-0" />
+            <p className="text-sm text-red-700">{error}</p>
+          </div>
+        )}
 
-        <button type="submit" className="btn-primary">
-          LOGIN
+        <button 
+          type="submit" 
+          className="btn-primary flex items-center justify-center gap-2 mt-6"
+          disabled={loading}
+        >
+          {loading ? "Signing in..." : "Sign In"}
+          <FiArrowRight className={loading ? "opacity-50" : ""} />
         </button>
 
-        <p className="text-[13px] text-slate-800 mt-3">
-          Don’t have an account?{" "}
+        <div className="pt-2 text-center text-sm text-gray-600">
+          Don't have an account?{" "}
           <button
-            className="font-medium text-primary underline cursor-pointer"
-            onClick={() => {
-              setCurrentPage("signup");
-            }}
+            type="button"
+            className="font-semibold text-indigo-600 hover:text-indigo-700 transition-colors"
+            onClick={onSwitch}
           >
-            SignUp
+            Sign Up
           </button>
-        </p>
+        </div>
       </form>
     </div>
   );

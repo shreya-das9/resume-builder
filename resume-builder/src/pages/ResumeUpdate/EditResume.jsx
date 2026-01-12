@@ -603,11 +603,11 @@ const EditResume = () => {
             </button>
 
             <button
-              className="btn-small-light"
+              className="btn-small flex items-center gap-2 text-white bg-gradient-to-r from-indigo-500 to-indigo-600 hover:shadow-lg hover:shadow-indigo-500/40 transition-all"
               onClick={() => setOpenPreviewModal(true)}
             >
               <LuDownload className="text-[16px]" />
-              <span className="hidden md:block">Preview & Download</span>
+              <span className="hidden md:block">Download Resume</span>
             </button>
           </div>
         </div>
@@ -647,15 +647,16 @@ const EditResume = () => {
                   onClick={validateAndNext}
                   disabled={isLoading}
                 >
-                  {currentPage === "additionalInfo" && (
-                    <LuDownload className="text-[16px]" />
-                  )}
-
-                  {currentPage === "additionalInfo"
-                    ? "Preview & Download"
-                    : "Next"}
-                  {currentPage !== "additionalInfo" && (
-                    <LuArrowLeft className="text-[16px] rotate-180" />
+                  {currentPage === "additionalInfo" ? (
+                    <>
+                      <LuDownload className="text-[16px]" />
+                      Download Resume
+                    </>
+                  ) : (
+                    <>
+                      Next
+                      <LuArrowLeft className="text-[16px] rotate-180" />
+                    </>
                   )}
                 </button>
               </div>

@@ -1,30 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,300..900;1,300..900&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Urbanist", sans-serif;
+  --font-display: "Poppins", sans-serif;
+  --font-mono: "Inter", sans-serif;
   --breakpoint-3xl: 1920px;
-  --color-primary: #9328E7;
+  --color-primary: #6366F1;
+  --color-primary-dark: #4F46E5;
+  --color-primary-light: #818CF8;
 }
 
 @layer base {
   html {
-    font-family: var(--font-display);
+    font-family: var(--font-mono);
   }
 
   body {
-    background-color: #fcfbfc;
+    background: linear-gradient(135deg, #F8F9FB 0%, #F3F4FB 100%);
     overflow-x: hidden;
+    color: #1F2937;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 600;
   }
 }
 
 /* Custom scrollbar styling */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
+  width: 6px;
+  height: 6px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(100, 100, 100, 0.4);
+  background: linear-gradient(180deg, #818CF8 0%, #6366F1 100%);
   border-radius: 10px;
 }
 
@@ -33,7 +43,7 @@
 }
 
 @layer utilities {
-  /* Animate text with a shine effect */
+  /* Animations */
   @keyframes text-shine {
     0% {
       background-position: 0% 50%;
@@ -43,27 +53,123 @@
     }
   }
 
+  @keyframes float-up {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-in {
+    0% {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 30px rgba(99, 102, 241, 0.6);
+    }
+  }
+
   .animate-text-shine {
     animation: text-shine 3s ease-in-out infinite alternate;
   }
+
+  .animate-float-up {
+    animation: float-up 0.6s ease-out;
+  }
+
+  .animate-slide-in {
+    animation: slide-in 0.5s ease-out;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  /* Glass morphism effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500;
+  }
 }
 
+/* Modern Input Styles */
 .input-box {
-  @apply w-full flex justify-between gap-3 text-sm text-black bg-gray-50/50 rounded px-4 py-3 mb-4 mt-3 border border-gray-100 outline-none focus-within:border-purple-300;
+  @apply w-full flex justify-between gap-3 text-sm text-gray-900 bg-white rounded-lg px-4 py-3 mb-4 mt-3 border border-gray-200 outline-none transition-all duration-200 hover:border-gray-300 focus-within:border-indigo-500 focus-within:shadow-lg focus-within:shadow-indigo-500/10;
 }
 
+/* Modern Button Styles */
 .btn-primary {
-  @apply w-full text-sm font-medium text-white bg-black shadow-lg shadow-purple-600/5 p-[10px] rounded-md my-1 hover:bg-purple-600/15 hover:text-black cursor-pointer;
+  @apply w-full text-sm font-semibold text-white bg-gradient-to-r from-indigo-500 to-indigo-600 shadow-lg shadow-indigo-500/30 px-4 py-3 rounded-lg transition-all duration-200 hover:shadow-xl hover:shadow-indigo-500/40 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer border-0;
+}
+
+.btn-primary:disabled {
+  @apply opacity-50 cursor-not-allowed hover:shadow-lg hover:-translate-y-0;
+}
+
+.btn-secondary {
+  @apply w-full text-sm font-semibold text-indigo-600 bg-indigo-50 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-indigo-100 border border-indigo-200 cursor-pointer;
 }
 
 .btn-small {
-  @apply flex items-center gap-2 text-[13px] font-semibold text-white bg-linear-to-r from-purple-500/85 to-purple-700 px-5 py-1.5 rounded cursor-pointer;
+  @apply inline-flex items-center gap-2 text-xs font-semibold text-white bg-gradient-to-r from-indigo-500 to-indigo-600 px-4 py-2 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-indigo-500/30 hover:-translate-y-0.5 cursor-pointer;
 }
 
 .btn-small-light {
-  @apply flex items-center gap-2 text-[12px] font-semibold text-purple-800 bg-purple-600/15 border border-purple-50 hover:border-purple-400 px-3 py-1.5 rounded cursor-pointer;
+  @apply inline-flex items-center gap-2 text-xs font-semibold text-indigo-600 bg-indigo-50 border border-indigo-200 hover:border-indigo-400 hover:bg-indigo-100 px-3 py-1.5 rounded-lg transition-all duration-200 cursor-pointer;
 }
 
+.btn-ghost {
+  @apply inline-flex items-center gap-2 text-xs font-semibold text-gray-600 hover:text-indigo-600 px-3 py-2 rounded-lg transition-all duration-200 cursor-pointer hover:bg-gray-100;
+}
+
+/* Modern Form Input */
 .form-input {
-  @apply w-full text-sm text-black outline-none bg-white border border-slate-100 px-2.5 py-3 rounded-md mt-2 placeholder:text-gray-500 focus-within:border-purple-300;
+  @apply w-full text-sm text-gray-900 outline-none bg-white border border-gray-200 px-4 py-3 rounded-lg mt-2 placeholder:text-gray-400 transition-all duration-200 hover:border-gray-300 focus:border-indigo-500 focus:shadow-lg focus:shadow-indigo-500/10;
+}
+
+.form-input::placeholder {
+  @apply text-gray-400;
+}
+
+.form-input:focus {
+  @apply border-indigo-500 shadow-lg shadow-indigo-500/10;
+}
+
+/* Card Styles */
+.card {
+  @apply bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-200;
+}
+
+.card-hover {
+  @apply bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-xl hover:border-indigo-300 transition-all duration-300 hover:-translate-y-1;
+}
+
+/* Badge Styles */
+.badge-primary {
+  @apply inline-block px-3 py-1 text-xs font-semibold text-white bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-full;
+}
+
+.badge-secondary {
+  @apply inline-block px-3 py-1 text-xs font-semibold text-indigo-600 bg-indigo-50 border border-indigo-200 rounded-full;
 }
