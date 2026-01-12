@@ -18,6 +18,11 @@ export const resumeTemplates = [
     thumbnailImg: TEMPLATE_THREE_IMG,
     colorPaletteCode: 'themeThree'
   },
+  {
+    id:'04',
+    thumbnailImg: TEMPLATE_ONE_IMG,
+    colorPaletteCode: 'themeFour'
+  },
 ]
 
 export const themeColorPalette = {
@@ -38,6 +43,11 @@ export const themeColorPalette = {
 
     ["#F7F7F7", "#E4E4E4", "#CFCFCF", "#4A4A4A", "#222222"],
     ["#E3F2FD", "#90CAF9", "#a8d2f4", "#1E88E5", "#0D47A1"],
+  ],
+  themeFour: [
+    ["#FFFFFF", "#000000", "#F5F5F5", "#333333", "#666666"],
+    ["#FFFFFF", "#1F2937", "#F3F4F6", "#374151", "#6B7280"],
+    ["#FFFFFF", "#111827", "#F9FAFB", "#1F2937", "#4B5563"],
   ],
 };
 
