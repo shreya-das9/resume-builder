@@ -98,9 +98,6 @@ const LandingPage = () => {
               >
                 Get Started <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
               </button>
-              <button className="px-8 py-4 rounded-lg font-semibold text-indigo-600 bg-white border-2 border-indigo-200 hover:border-indigo-400 hover:bg-indigo-50 transition-all duration-200">
-                View Demo
-              </button>
             </div>
 
             <div className="mt-10 flex gap-6 text-sm">
